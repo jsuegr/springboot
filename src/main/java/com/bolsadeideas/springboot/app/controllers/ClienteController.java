@@ -64,4 +64,13 @@ public class ClienteController {
 		status.setComplete();
 		return "redirect:listar";
 	}
+	
+	@RequestMapping(value="/eliminar/{id}")
+	public String eliminar(@PathVariable(value="id") Long id,Map<String,Object> model) {
+		if(id>0) {
+			clienteDao.delete(id);
+		}
+		model.put("titulo", "Listado de clientes");
+		return "redirect:/listar";
+	}
 }
