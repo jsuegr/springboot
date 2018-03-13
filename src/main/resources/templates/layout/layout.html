@@ -4,9 +4,7 @@
 <meta charset="utf-8" />
 <title th:text="${titulo}"></title>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous"></link>
+	th:href="@{/css/bootstrap.min.css}"></link>
 
 </head>
 <body>
@@ -41,7 +39,7 @@
 		</p>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Bootstrap JS -->
-		<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
 	</footer>
 </body>
