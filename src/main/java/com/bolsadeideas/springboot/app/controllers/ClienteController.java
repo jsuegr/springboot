@@ -36,8 +36,9 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/form", method = RequestMethod.POST)
-	public String guardar(@Valid Cliente cliente, BindingResult result) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model) {
 		if(result.hasErrors()){
+			model.addAttribute("titulo","Formulario de cliente");
 			return "form";
 		}
 		clienteDao.save(cliente);
