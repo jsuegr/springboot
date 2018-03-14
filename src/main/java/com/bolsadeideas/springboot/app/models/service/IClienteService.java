@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.models.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -18,4 +19,6 @@ public interface IClienteService {
 	public Cliente findOne(Long id);
 	
 	public void delete(Long id);
+	
+	
 }
