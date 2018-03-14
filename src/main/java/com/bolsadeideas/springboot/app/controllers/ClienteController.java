@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -45,9 +46,11 @@ public class ClienteController {
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
+	public static final String UPLOADS_FOLDER = "uploads";
+	
 	@GetMapping(value="/uploads/{filename:.+}")
 	public ResponseEntity<Resource>	verFoto(@PathVariable String filename){
-		Path pathFoto = Paths.get("uploads").resolve(filename).toAbsolutePath();
+		Path pathFoto = Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
 		log.info("pathFoto: " + pathFoto);
 		Resource recurso = null;
 		try {
@@ -130,8 +133,20 @@ public class ClienteController {
 		
 		if(!foto.isEmpty())
 		{
+			
+			if(cliente.getId()!=null 
+					&& cliente.getId()>0
+					&&cliente.getFoto()!=null
+					&&cliente.getFoto().length()>0) {
+				Path rootPath = Paths.get(UPLOADS_FOLDER).resolve(cliente.getFoto()).toAbsolutePath();
+				File archivo = rootPath.toFile();
+				if(archivo.exists() && archivo.canRead()) {
+					archivo.delete();
+				}
+			}
+			
 			String uniqueFileName = UUID.randomUUID().toString()+"_"+foto.getOriginalFilename();
-			Path rootPath = Paths.get("uploads").resolve(uniqueFileName);
+			Path rootPath = Paths.get(UPLOADS_FOLDER).resolve(uniqueFileName);
 			Path rootAbsolutePath = rootPath.toAbsolutePath();
 			
 			log.info("rootPath = " + rootPath);
@@ -160,8 +175,17 @@ public class ClienteController {
 	@RequestMapping(value="/eliminar/{id}")
 	public String eliminar(@PathVariable(value="id") Long id,Map<String,Object> model, RedirectAttributes flash) {
 		if(id>0) {
+			Cliente cliente = clienteService.findOne(id);
 			clienteService.delete(id);
 			flash.addFlashAttribute("success","¡El cliente ha sido eliminado!");
+			
+			Path rootPath = Paths.get(UPLOADS_FOLDER).resolve(cliente.getFoto()).toAbsolutePath();
+			File archivo = rootPath.toFile();
+			if(archivo.exists() && archivo.canRead()) {
+				if(archivo.delete()) {
+					flash.addFlashAttribute("info","Foto "+ cliente.getFoto() +" se eliminó con éxito");
+				}
+			}
 		}
 		model.put("titulo", "Listado de clientes");
 		return "redirect:/listar";
