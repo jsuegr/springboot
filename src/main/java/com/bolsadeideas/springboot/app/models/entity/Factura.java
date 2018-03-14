@@ -28,7 +28,8 @@ public class Factura implements Serializable{
 	private Long id;
 	private String descripcion;
 	private String observacion;
-	@Temporal(TemporalType.TIME)
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name="create_at")
 	private Date createAt;
 	
