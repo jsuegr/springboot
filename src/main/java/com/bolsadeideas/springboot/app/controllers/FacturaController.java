@@ -35,7 +35,7 @@ public class FacturaController {
 		Factura factura = new Factura();
 		factura.setCliente(cliente);
 		
-		model.put("factura", cliente);
+		model.put("factura", factura);
 		model.put("titulo", "Crear Factura");
 		return "factura/form";
 	}

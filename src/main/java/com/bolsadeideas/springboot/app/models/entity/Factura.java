@@ -34,7 +34,7 @@ public class Factura implements Serializable{
 	private Date createAt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Cliente cliente;
+	public Cliente cliente;
 	
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -104,7 +104,6 @@ public class Factura implements Serializable{
 		this.items = items;
 	}
 	
-	//Calcula gran total
 	public Double getTotal() {
 		Double total = 0.0;
 		
