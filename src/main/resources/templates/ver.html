@@ -10,7 +10,11 @@
 		<div class="card bg-light">
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">
-
+				<h4 class="">
+					<a class="btn btn-primary btn-xs"
+						th:href="@{'/factura/form/' + ${cliente.id}}"
+						th:text="'crear factura'"></a>
+				</h4>
 				<img th:if="${#strings.length(cliente.foto) > 0}"
 					class="img-thumbnail rounded float-left" style="max-width: 25%;"
 					th:src="@{'/uploads/' + ${cliente.foto}}" th:alt="${cliente.foto}" />
@@ -22,8 +26,11 @@
 					<li class="list-group-item" th:text="${cliente.createAt}"></li>
 				</ul>
 
-				<div th:if="${#lists.isEmpty(cliente.facturas)}" class="alert alert-info my-4" th:text="'No hay facturas registradas para el cliente'"></div>
-				<table th:if="${not #lists.isEmpty(cliente.facturas)}" class="table tabled-bordered table-striped my-4">
+				<div th:if="${#lists.isEmpty(cliente.facturas)}"
+					class="alert alert-info my-4"
+					th:text="'No hay facturas registradas para el cliente'"></div>
+				<table th:if="${not #lists.isEmpty(cliente.facturas)}"
+					class="table tabled-bordered table-striped my-4">
 					<thead class="thead-inverse">
 						<tr>
 							<th>Folio</th>
@@ -33,12 +40,12 @@
 						</tr>
 					</thead>
 					<tbody>
-					 <tr  th:each="factura : ${cliente.facturas}">
-					 	<td th:text="${factura.id}"></td>
-					 	<td th:text="${factura.descripcion}"></td>
-					 	<td th:text="${factura.createAt}"></td>
-					 	<td th:text="${factura.total}"></td>
-					 </tr>
+						<tr th:each="factura : ${cliente.facturas}">
+							<td th:text="${factura.id}"></td>
+							<td th:text="${factura.descripcion}"></td>
+							<td th:text="${factura.createAt}"></td>
+							<td th:text="${factura.total}"></td>
+						</tr>
 					</tbody>
 				</table>
 
