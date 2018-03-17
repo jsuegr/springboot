@@ -46,8 +46,19 @@
 						</div>
 					</div>
 					<table th:replace="factura/js/plantilla-items :: itemsFactura"></table>
+					<table id="cargarItemProductos"
+						class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+							</tr>
+						</thead>	
+						<tbody>
+						</tbody>
+					</table>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label" th:text="'Observación'"></label>
 						<div class="col-sm-6">
 							<input type="submit" th:value="${titulo}"
 								class="btn btn-secondary"></input>
