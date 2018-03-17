@@ -11,13 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileSystemUtils;
 
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
+import com.bolsadeideas.springboot.app.models.dao.IProductDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Producto;
 @Service
 public class ClienteServiceImpl implements IClienteService {
 
 	@Autowired
 	IClienteDao clienteDao;
 	
+	@Autowired
+	private IProductDao productoDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -48,9 +52,17 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Page<Cliente> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return clienteDao.findAll(pageable);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<Producto> findByName(String term) {
+		
+		return productoDao.findByNombreLikeIgnoreCase("%"+term+"%");
 	}
 
 }
